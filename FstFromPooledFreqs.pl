@@ -143,12 +143,12 @@ sub Fst {
     my $num_sub_pops = 2;
 
     my $Fst;
-    my ($TS_sub1,$TS_sub2); # numerator and denominator for theta (?)
+    my ($TS_sub1,$TS_sub2);
     my @alleles = (0,1);
 
-    my $avg_samp_size         = 0; # n-bar
-    my $avg_allele_freq       = 0; # p-tilda-A-dot
-    my $total_samples_squared = 0; # s-squared?
+    my $avg_samp_size         = 0;
+    my $avg_allele_freq       = 0;
+    my $total_samples_squared = 0;
 
     foreach (my $c = 0; $c < 2; $c ++) {
 	my $s = $samplesizes[$c];
@@ -158,15 +158,15 @@ sub Fst {
 	$avg_allele_freq += $s * $all_freq;
     }
     
-    my $total_samples =  $avg_samp_size;	# sum of n over i sub-populations
+    my $total_samples =  $avg_samp_size;
     $avg_samp_size /= $num_sub_pops;
     $avg_allele_freq /= $total_samples;
 
-    my $adj_samp_size = ( 1/ ($num_sub_pops - 1)) * ( $total_samples - ( $total_samples_squared/$total_samples));   # n-sub-c
+    my $adj_samp_size = ( 1/ ($num_sub_pops - 1)) * ( $total_samples - ( $total_samples_squared/$total_samples));
 
-    my $variance              = 0; # s-squared-sub-A
+    my $variance              = 0;
     my $sum_variance          = 0;
-    my $i = 0;		# we have cached the marker info
+    my $i = 0;
     for (my $d = 0; $d <2; $d ++) {
 	my $s = $samplesizes[$d];
 	$sum_variance += $s * (($freqs[$d] - $avg_allele_freq)**2);
